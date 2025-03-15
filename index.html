@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 운세</title>
+    <style>
+        body {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 50px;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        button {
+            font-size: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff7eb3, #ff758c);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+        }
+        #message {
+            display: none;
+            font-size: 40px;
+            font-weight: bold;
+            color: red;
+            margin-top: 20px;
+            opacity: 1;
+            transition: opacity 1s;
+        }
+        #final-message {
+            display: none;
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: rainbow 0.5s infinite alternate;
+        }
+        @keyframes rainbow {
+            0% { color: red; }
+            14% { color: orange; }
+            28% { color: yellow; }
+            42% { color: green; }
+            57% { color: blue; }
+            71% { color: indigo; }
+            85% { color: violet; }
+            100% { color: red; }
+        }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: gold;
+            border-radius: 50%;
+            animation: explode 1.5s ease-out forwards;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+        .emoji {
+            position: absolute;
+            font-size: 40px;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-100px); }
+            to { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <button onclick="showFortune()">눌러서 오늘의 운세 확인하기!</button>
+    <div id="message">축하드립니다!!</div>
+    <div id="final-message">임준서 바보!!</div>
+    
+    <script>
+        function showFortune() {
+            let message = document.getElementById('message');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.opacity = '0';
+                launchFireworks();
+                setTimeout(() => {
+                    message.style.display = 'none';
+                    document.getElementById('final-message').style.display = 'block';
+                    startEmojiRain();
+                }, 1000);
+            }, 1000);
+        }
+        
+        function launchFireworks() {
+            for (let i = 0; i < 50; i++) {
+                let firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.top = Math.random() * window.innerHeight + 'px';
+                firework.style.left = Math.random() * window.innerWidth + 'px';
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }
+        
+        function startEmojiRain() {
+            setInterval(() => {
+                let emoji = document.createElement('div');
+                emoji.className = 'emoji';
+                emoji.innerText = '😜';
+                emoji.style.left = Math.random() * window.innerWidth + 'px';
+                document.body.appendChild(emoji);
+                setTimeout(() => emoji.remove(), 3000);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
